@@ -30,7 +30,7 @@
 
      
       <div class="canvas-container">
-          <canvas id="canvas1" style="border: 1px solid; margin-top: 8px;"></canvas>
+          <canvas id="canvas1" style="border: 1px solid; margin-top: 8px;" width="1200" height="400"></canvas>
       </div>
       
       <div class="furniture" style="padding: 20px;border: 1px solid;margin-top: 8px;width: 1160px">
@@ -62,7 +62,6 @@ function initCanvas() {
 
     var canvasContainer = $(this)[0];
     var canvasObject = $("canvas", this)[0];
-    //var clearEl = $('clear-canvas');
 
     var imageOffsetX, imageOffsetY;
 
@@ -140,20 +139,6 @@ initCanvas();
 var canvas = new fabric.Canvas('canvas1', {
        selection: false
     });
-
-canvas.setHeight(400);
-canvas.setWidth(1200);
-
-/*window.addEventListener('resize', resizeCanvas, false);
-
-  function resizeCanvas() {
-    canvas.setHeight(window.innerHeight);
-    canvas.setWidth(window.innerWidth);
-    canvas.renderAll();
-  }
-
-  // resize on init*/
-  //resizeCanvas();
 
 
 var line, isDown;
