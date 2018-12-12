@@ -1,0 +1,162 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Diagraming the Rock Cycle</title>
+</head>
+
+<body>
+
+  <div class="fullpage">
+
+  <div class="section">
+  
+      <a class="thmb" href="#" onclick="enableFreeDrawing()" style="padding: 0px 10px;margin:5px;border: 2px solid;">Draw</a>
+ 
+      <a class="thmb" href="#" onclick="enableSelection()" style="padding: 0px 10px;margin:5px;border: 2px solid;">Select</a>
+     
+      <div class="canvas-container">
+          <canvas id="canvas1" style="border: 1px solid;"></canvas>
+      </div>
+      
+      <div class="furniture" style="padding: 20px;border: 1px solid;width: 800px">
+          <h3>Your challenge is to create a diagram of a possible route through the rock cycle for the materials shown below. Drag each material to the canvas above, show lines with arrowheads and then drag the appropriate term to describe the process that caused the transformation represented by the line.</h3> 
+          <img draggable="true" src="https://pbs.twimg.com/profile_images/493834338182516736/fUxEkyu8_400x400.png" width="60">
+          <img draggable="true" src="https://www.mve.com/media/Move_logo_-01.png" width="60">
+      </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>
+
+
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.7.22/fabric.min.js'></script>
+
+
+
+<script>
+
+function initCanvas() {
+  $('.canvas-container').each(function(index) {
+
+    var canvasContainer = $(this)[0];
+    var canvasObject = $("canvas", this)[0];
+
+    var imageOffsetX, imageOffsetY;
+
+    function handleDragStart(e) {
+      [].forEach.call(images, function(img) {
+        img.classList.remove('img_dragging');
+      });
+      this.classList.add('img_dragging');
+      var imageOffset = $(this).offset();
+      imageOffsetX = e.clientX - imageOffset.left;
+      imageOffsetY = e.clientY - imageOffset.top;
+    }
+
+    function handleDragOver(e) {
+      if (e.preventDefault) {
+        e.preventDefault();
+      }
+      e.dataTransfer.dropEffect = 'copy';
+      return false;
+    }
+
+    function handleDragEnter(e) {
+      this.classList.add('over');
+    }
+
+    function handleDragLeave(e) {
+      this.classList.remove('over');
+    }
+
+    function handleDrop(e) {
+      e = e || window.event;
+      if (e.preventDefault) {
+        e.preventDefault();
+      }
+      if (e.stopPropagation) {
+        e.stopPropagation();
+      }
+      var img = document.querySelector('.furniture img.img_dragging');
+      console.log('event: ', e);
+
+      var offset = $(canvasObject).offset();
+      var y = e.clientY - (offset.top + imageOffsetY);
+      var x = e.clientX - (offset.left + imageOffsetX);
+
+      var newImage = new fabric.Image(img, {
+        width: img.width,
+        height: img.height,
+        left: x,
+        top: y
+      });
+      canvas.add(newImage);
+      return false;
+    }
+
+    function handleDragEnd(e) {
+      [].forEach.call(images, function(img) {
+        img.classList.remove('img_dragging');
+      });
+    }
+
+    var images = document.querySelectorAll('.furniture img');
+    [].forEach.call(images, function(img) {
+      img.addEventListener('dragstart', handleDragStart, false);
+      img.addEventListener('dragend', handleDragEnd, false);
+    });
+    canvasContainer.addEventListener('dragenter', handleDragEnter, false);
+    canvasContainer.addEventListener('dragover', handleDragOver, false);
+    canvasContainer.addEventListener('dragleave', handleDragLeave, false);
+    canvasContainer.addEventListener('drop', handleDrop, false);
+  });
+}
+initCanvas();
+
+var canvas = new fabric.Canvas('canvas1', {
+  selection: false
+});
+
+canvas.setHeight(300);
+canvas.setWidth(840);
+
+var line, isDown;
+
+function enableFreeDrawing(){
+  removeEvents();
+  canvas.isDrawingMode = true;
+}
+
+function enableSelection() {
+  removeEvents();
+  changeObjectSelection(true);
+  canvas.selection = true;
+}
+
+function changeObjectSelection(value) {
+  canvas.forEachObject(function (obj) {
+    obj.selectable = value;
+  });
+  canvas.renderAll();
+}
+
+function removeEvents() {
+  canvas.isDrawingMode = false;
+  canvas.selection = false;
+  canvas.off('mouse:down');
+  canvas.off('mouse:up');
+  canvas.off('mouse:move');
+}
+
+</script>
