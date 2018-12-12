@@ -11,26 +11,30 @@
 
   <div class="fullpage">
 
+    <h3>Your challenge is to create a diagram of a possible route through the rock cycle for the materials shown below. Drag each material to the canvas above, show lines with arrowheads and then drag the appropriate term to describe the process that caused the transformation represented by the line.</h3> 
+
   <div class="section">
   
-      <a class="thmb" href="#" onclick="enableFreeDrawing()" style="padding: 0px 10px;margin:5px;border: 2px solid;">Draw</a>
+      <a class="thmb" href="#" onclick="enableFreeDrawing()" style="padding: 0px 10px;margin:5px;border: 2px solid;">Draw line</a>
  
-      <a class="thmb" href="#" onclick="enableSelection()" style="padding: 0px 10px;margin:5px;border: 2px solid;">Select</a>
+      <a class="thmb" href="#" onclick="enableSelection()" style="padding: 0px 10px; margin:5px;border: 2px solid;">Select items</a>
 
       <!-- <button id="delete-one">Delete</button> -->
 
-      <button onClick="deleteObject()">Delete</button>
+      <a class="thmb" href="#" onClick="deleteObjects()" style="padding: 0px 10px;margin:5px;border: 2px solid;">Delete selection</a>
 
-      <button id="clear-canvas" class="btn btn-info">Clear entire canvas</button>
+      <a class="thmb" href="#" id="clear-canvas" class="btn btn-info" style="padding: 0px 10px;margin:5px;border: 2px solid;">Clear canvas</a>
 
-      <a id="lnkDownload" href="#">Save image</a>
+      <a class="thmb" href="#" id="lnkDownload" style="padding: 0px 10px;margin:5px;border: 2px solid;">Save image</a>
+
+
      
       <div class="canvas-container">
-          <canvas id="canvas1" style="border: 1px solid;"></canvas>
+          <canvas id="canvas1" style="border: 1px solid; margin-top: 8px;"></canvas>
       </div>
       
-      <div class="furniture" style="padding: 20px;border: 1px solid;width: 1000px">
-          <h3>Your challenge is to create a diagram of a possible route through the rock cycle for the materials shown below. Drag each material to the canvas above, show lines with arrowheads and then drag the appropriate term to describe the process that caused the transformation represented by the line.</h3> 
+      <div class="furniture" style="padding: 20px;border: 1px solid;margin-top: 8px;width: 1160px">
+          
           <img crossOrigin="Anonymous" draggable="true" src="https://pbs.twimg.com/profile_images/493834338182516736/fUxEkyu8_400x400.png" width="60">
           
       </div>
@@ -138,8 +142,19 @@ var canvas = new fabric.Canvas('canvas1', {
   selection: false
 });
 
-canvas.setHeight(500);
-canvas.setWidth(1040);
+canvas.setHeight(400);
+canvas.setWidth(1200);
+
+/*window.addEventListener('resize', resizeCanvas, false);
+
+  function resizeCanvas() {
+    canvas.setHeight(window.innerHeight);
+    canvas.setWidth(window.innerWidth);
+    canvas.renderAll();
+  }
+
+  // resize on init*/
+  //resizeCanvas();
 
 
 var line, isDown;
@@ -183,8 +198,27 @@ $('#cdelete-one').on('click', function() {
   //alert('Cleared');
 });
 
-window.deleteObject = function () {
+/*window.deleteObject = function () {
     canvas.getActiveObject().remove();
+}*/
+
+function deleteObjects(){
+  var activeObject = canvas.getActiveObject(),
+    activeGroup = canvas.getActiveGroup();
+    if (activeObject) {
+        if (confirm('Are you sure?')) {
+            canvas.remove(activeObject);
+        }
+    }
+    else if (activeGroup) {
+        if (confirm('Are you sure?')) {
+            var objectsInGroup = activeGroup.getObjects();
+            canvas.discardActiveGroup();
+            objectsInGroup.forEach(function(object) {
+            canvas.remove(object);
+            });
+        }
+    }
 }
 
 
