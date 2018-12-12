@@ -23,7 +23,7 @@
 
       <a class="thmb" href="#" onClick="deleteObjects()" style="padding: 0px 10px;margin:5px;border: 2px solid;">Delete selection</a>
 
-      <a class="thmb" href="#" id="clear-canvas" class="btn btn-info" style="padding: 0px 10px;margin:5px;border: 2px solid;">Clear canvas</a>
+      <a class="thmb" href="#" id="clear-canvas" onClick="deleteCanvas()" class="btn btn-info" style="padding: 0px 10px;margin:5px;border: 2px solid;">Clear canvas</a>
 
       <a class="thmb" href="#" id="lnkDownload" style="padding: 0px 10px;margin:5px;border: 2px solid;">Save image</a>
 
@@ -62,11 +62,9 @@ function initCanvas() {
 
     var canvasContainer = $(this)[0];
     var canvasObject = $("canvas", this)[0];
-    var clearEl = $('clear-canvas');
+    //var clearEl = $('clear-canvas');
 
     var imageOffsetX, imageOffsetY;
-
-    
 
     function handleDragStart(e) {
       [].forEach.call(images, function(img) {
@@ -138,9 +136,10 @@ function initCanvas() {
 }
 initCanvas();
 
+
 var canvas = new fabric.Canvas('canvas1', {
-  selection: false
-});
+       selection: false
+    });
 
 canvas.setHeight(400);
 canvas.setWidth(1200);
@@ -163,7 +162,7 @@ function enableFreeDrawing(){
   removeEvents();
   canvas.isDrawingMode = true;
   canvas.freeDrawingBrush.color = "black";
-  canvas.freeDrawingBrush.width = 5;
+  canvas.freeDrawingBrush.width = 3;
   canvas.renderAll();
 }
 
@@ -193,14 +192,19 @@ $('#clear-canvas').on('click', function() {
   //alert('Cleared');
 });
 
-$('#cdelete-one').on('click', function() {
+/*$('#cdelete-one').on('click', function() {
+  if (confirm('Are you sure?')) {
   canvas.clear();
+  }
   //alert('Cleared');
-});
+});*/
 
-/*window.deleteObject = function () {
-    canvas.getActiveObject().remove();
-}*/
+function deleteCanvas() {
+
+  if (confirm('Are you sure?')) {
+  canvas.clear();
+  }
+}
 
 function deleteObjects(){
   var activeObject = canvas.getActiveObject(),
