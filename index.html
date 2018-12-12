@@ -15,6 +15,8 @@
 
   <div class="section">
   
+      <a class="thmb" href="#" onclick="Addtext()" style="padding: 0px 10px;margin:5px;border: 2px solid;text-decoration: none; color:blue; border-color:black;">Add text</a>
+
       <a class="thmb" href="#" onclick="enableFreeDrawing()" style="padding: 0px 10px;margin:5px;border: 2px solid; text-decoration: none; color:blue; border-color:black;">Draw line</a>
  
       <a class="thmb" href="#" onclick="enableSelection()" style="padding: 0px 10px; margin:5px;border: 2px solid;text-decoration: none; color:blue; border-color:black;">Select items</a>
@@ -23,7 +25,7 @@
 
       <a class="thmb" href="#" onClick="deleteObjects()" style="padding: 0px 10px;margin:5px;border: 2px solid;text-decoration: none; color:blue; border-color:black;">Delete selection</a>
 
-      <a class="thmb" href="#" id="clear-canvas" onClick="deleteCanvas()" class="btn btn-info" style="padding: 0px 10px;margin:5px;border: 2px solid;text-decoration: none; color:blue; border-color:black;">Clear canvas</a>
+      <a class="thmb" href="#" onClick="deleteCanvas()" class="btn btn-info" style="padding: 0px 10px;margin:5px;border: 2px solid;text-decoration: none; color:blue; border-color:black;">Clear canvas</a>
 
       <a class="thmb" href="#" id="lnkDownload" style="padding: 0px 10px;margin:5px;border: 2px solid;text-decoration: none; color:blue; border-color:black;">Save image</a>
 
@@ -34,20 +36,31 @@
       </div>
       
       <div class="icons" style="padding: 20px;border: 2px solid;margin-top: 18px;width: 1160px">
-          
-          <!-- <img crossOrigin="Anonymous" draggable="true" src="https://pbs.twimg.com/profile_images/493834338182516736/fUxEkyu8_400x400.png" width="60"> -->
 
-          <img crossOrigin="Anonymous" draggable="true" src="calciumcarbonate.png" width="100">
+
+         <img crossOrigin="Anonymous" draggable="true" src="calciumcarbonate.png" width="100">
+          <img crossOrigin="Anonymous" draggable="true" src="schist.png" width="110">
+          <img crossOrigin="Anonymous" draggable="true" src="slate.png" width="160">
+          <img crossOrigin="Anonymous" draggable="true" src="clay.png" width="140">
+          <img crossOrigin="Anonymous" draggable="true" src="sand.png" width="130">
+          <img crossOrigin="Anonymous" draggable="true" src="gneiss.png" width="150">
+          <img crossOrigin="Anonymous" draggable="true" src="shale.png" width="120">
+          <img crossOrigin="Anonymous" draggable="true" src="basalt.png" width="120">
+          <img crossOrigin="Anonymous" draggable="true" src="granite.png" width="130">
+          <img crossOrigin="Anonymous" draggable="true" src="obsidian.png" width="120">
+          <img crossOrigin="Anonymous" draggable="true" src="limestone.png" width="140">
+          <img crossOrigin="Anonymous" draggable="true" src="marble.png" width="150">
+          <img crossOrigin="Anonymous" draggable="true" src="sandstone.png" width="140">
+          <img crossOrigin="Anonymous" draggable="true" src="quartzite.png" width="155">
+          <img crossOrigin="Anonymous" draggable="true" src="lava.png" width="135">
           
       </div>
 
-      <div class="terms" style="padding: 20px;border: 2px solid;margin-top: 18px;width: 1160px">
-          
-          <!-- <img crossOrigin="Anonymous" draggable="true" src="https://pbs.twimg.com/profile_images/493834338182516736/fUxEkyu8_400x400.png" width="60"> -->
+      <!-- <div class="terms" style="padding: 20px;border: 2px solid;margin-top: 18px;width: 1160px">
 
           <img crossOrigin="Anonymous" draggable="true" src="erosion.png" width="100">
           
-      </div>
+      </div> -->
 
   </div>
 
@@ -199,8 +212,56 @@ var canvas = new fabric.Canvas('canvas1', {
        selection: false
     });
 
-
+canvas.backgroundColor = 'green';
 var line, isDown;
+
+
+/*function Addtext() {
+   canvas.add(new fabric.IText('tap and type', {
+      left: 50,
+      top: 100,
+      fontFamily: 'helvetica neue',
+      fill: '#333',
+      stroke: '#F0F0F0',
+      strokeWidth: 1,
+      fontSize: 30,
+      fontWeight: 400
+   }));
+}*/
+
+function Addtext() {
+   var fabText = new fabric.IText('', {
+      left: 20,
+      top: 20,
+      fontFamily: 'tahoma',
+      fill: '#696969',
+      stroke: '#696969',
+      strokeWidth: 0.2,
+      fontSize: 18,
+      charSpacing: 50,
+      fontWeight: 400
+   });
+   canvas.add(fabText);
+   canvas.setActiveObject(fabText);
+   fabText.enterEditing()
+   fabText.hiddenTextarea.focus();
+
+   
+}
+
+canvas.on("text:editing:entered", clearText);
+
+
+function clearText(e) {
+  if (e.target.type === "i-text") {
+    if (e.target.text === "tap and type") {
+      e.target.text = "";
+      canvas.renderAll();
+    };
+  }
+}
+
+
 
 function enableFreeDrawing(){
   removeEvents();
