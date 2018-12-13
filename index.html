@@ -3,7 +3,28 @@
 <html lang="en">
 <head>
 
+  <style>
+
+  .footer {
+  right: 0;
+  bottom: 10px;
+  left: 0;
+  text-align: center;
+  font-size:small; 
+  color:gray;
+  background: white;
+  border-radius: 15px;
+  width: 700px;
+  margin: 0 auto;
+  opacity: 0.5;
+  padding: 10px;
+}
+
+</style>
+
   <meta charset="utf-8">
+
+  <link rel="shortcut icon" href="jbrhicon.png">
 
   <title>Diagraming the Rock Cycle</title>
 </head>
@@ -12,13 +33,13 @@
 
   <div class="fullpage">
 
-    <h3>Your challenge is to create a diagram of a possible route through the rock cycle for the materials shown below. Drag each material to the canvas above, show lines with arrowheads and then drag the appropriate term to describe the process that caused the transformation represented by the line.</h3> 
+    <h3>Drag the rock types below onto the canvas, add connecting lines with arrowheads and text to illustrate your understanding of the flow of material through these rocks as part of the Rock Cycle. Export an image of your completed diagram. </h3> 
 
   <div class="section">
   
       <a class="thmb" href="#" onclick="Addtext()" style="padding: 0px 10px;margin:5px;border: 2px solid;text-decoration: none; color:blue; border-color:black;">Add text</a>
 
-      <a class="thmb" href="#" onclick="enableFreeDrawing()" style="padding: 0px 10px;margin:5px;border: 2px solid; text-decoration: none; color:blue; border-color:black;">Draw line</a>
+      <a class="thmb" href="#" onclick="enableFreeDrawing()" style="padding: 0px 10px;margin:5px;border: 2px solid; text-decoration: none; color:blue; border-color:black;">Draw lines</a>
  
       <a class="thmb" href="#" onclick="enableSelection()" style="padding: 0px 10px; margin:5px;border: 2px solid;text-decoration: none; color:blue; border-color:black;">Select items</a>
 
@@ -29,34 +50,36 @@
       <a class="thmb" href="#" id="lnkDownload" style="padding: 0px 10px;margin:5px;border: 2px solid;text-decoration: none; color:blue; border-color:black;">Save image</a>
 
        <a>
-          <label for="canvas-background-picker">Canvas background:</label>
+          <label for="canvas-background-picker">Canvas color:</label>
           <input type="color" id="bg_color" value="#ffffff">
         </a>
 
 
      
       <div class="canvas-container">
-          <canvas id="canvas1" style="border: 2px solid; margin-top: 8px;" width="1200" height="400"></canvas>
+          <canvas id="canvas1" style="border: 2px solid; margin-top: 8px;" width="1200" height="600"></canvas>
       </div>
       
       <div class="icons" style="padding: 20px;border: 2px solid;margin-top: 18px;width: 1160px">
 
 
-         <img crossOrigin="Anonymous" draggable="true" src="calciumcarbonate.png" width="100">
+          <img crossOrigin="Anonymous" draggable="true" src="calciumcarbonate.png" width="100">
           <img crossOrigin="Anonymous" draggable="true" src="schist.png" width="110">
-          <img crossOrigin="Anonymous" draggable="true" src="slate.png" width="160">
+          <img crossOrigin="Anonymous" draggable="true" src="basalt.png" width="120">
+          <img crossOrigin="Anonymous" draggable="true" src="marble.png" width="150">
           <img crossOrigin="Anonymous" draggable="true" src="clay.png" width="140">
-          <img crossOrigin="Anonymous" draggable="true" src="sand.png" width="130">
+          <img crossOrigin="Anonymous" draggable="true" src="slate.png" width="160">
+          <img crossOrigin="Anonymous" draggable="true" src="sandstone.png" width="140">
           <img crossOrigin="Anonymous" draggable="true" src="gneiss.png" width="150">
           <img crossOrigin="Anonymous" draggable="true" src="shale.png" width="120">
-          <img crossOrigin="Anonymous" draggable="true" src="basalt.png" width="120">
+          <img crossOrigin="Anonymous" draggable="true" src="quartzite.png" width="155">
           <img crossOrigin="Anonymous" draggable="true" src="granite.png" width="130">
+          <img crossOrigin="Anonymous" draggable="true" src="conglomerate.png" width="130">
           <img crossOrigin="Anonymous" draggable="true" src="obsidian.png" width="120">
           <img crossOrigin="Anonymous" draggable="true" src="limestone.png" width="140">
-          <img crossOrigin="Anonymous" draggable="true" src="marble.png" width="150">
-          <img crossOrigin="Anonymous" draggable="true" src="sandstone.png" width="140">
-          <img crossOrigin="Anonymous" draggable="true" src="quartzite.png" width="155">
           <img crossOrigin="Anonymous" draggable="true" src="lava.png" width="135">
+          <img crossOrigin="Anonymous" draggable="true" src="sand.png" width="130">
+
           
       </div>
 
@@ -69,6 +92,13 @@
   </div>
 
 </div>
+<br></br>
+
+<p class="footer">
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Rock Cycle Diagramming</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://www.physics.drexel.edu/~tim" property="cc:attributionName" rel="cc:attributionURL">Jenny Hoffman</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>.
+<br/>
+This page uses Fabric.js and JQuery.
+</p>
 
 </body>
 </html>
@@ -228,8 +258,8 @@ function Addtext() {
       left: 20,
       top: 20,
       fontFamily: 'tahoma',
-      fill: '#696969',
-      stroke: '#696969',
+      fill: '#0000000',
+      stroke: '#000000',
       strokeWidth: 0.2,
       fontSize: 18,
       charSpacing: 50,
@@ -260,7 +290,7 @@ function enableFreeDrawing(){
   removeEvents();
   canvas.isDrawingMode = true;
   canvas.freeDrawingBrush.color = "black";
-  canvas.freeDrawingBrush.width = 3;
+  canvas.freeDrawingBrush.width = 4;
   canvas.renderAll();
 }
 
