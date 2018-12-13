@@ -2,6 +2,7 @@
 
 <html lang="en">
 <head>
+
   <meta charset="utf-8">
 
   <title>Diagraming the Rock Cycle</title>
@@ -21,13 +22,16 @@
  
       <a class="thmb" href="#" onclick="enableSelection()" style="padding: 0px 10px; margin:5px;border: 2px solid;text-decoration: none; color:blue; border-color:black;">Select items</a>
 
-      <!-- <button id="delete-one">Delete</button> -->
-
       <a class="thmb" href="#" onClick="deleteObjects()" style="padding: 0px 10px;margin:5px;border: 2px solid;text-decoration: none; color:blue; border-color:black;">Delete selection</a>
 
       <a class="thmb" href="#" onClick="deleteCanvas()" class="btn btn-info" style="padding: 0px 10px;margin:5px;border: 2px solid;text-decoration: none; color:blue; border-color:black;">Clear canvas</a>
 
       <a class="thmb" href="#" id="lnkDownload" style="padding: 0px 10px;margin:5px;border: 2px solid;text-decoration: none; color:blue; border-color:black;">Save image</a>
+
+       <a>
+          <label for="canvas-background-picker">Canvas background:</label>
+          <input type="color" id="bg_color" value="#ffffff">
+        </a>
 
 
      
@@ -98,7 +102,7 @@ function initCanvas() {
       imageOffsetY = e.clientY - imageOffset.top;
     }
 
-    function handleDragStartTerms(e) {
+    /*function handleDragStartTerms(e) {
       [].forEach.call(imagesTerms, function(img) {
         img.classList.remove('img_dragging');
       });
@@ -106,7 +110,7 @@ function initCanvas() {
       var imageOffset = $(this).offset();
       imageOffsetX = e.clientX - imageOffset.left;
       imageOffsetY = e.clientY - imageOffset.top;
-    }
+    }*/
 
     function handleDragOver(e) {
       if (e.preventDefault) {
@@ -149,7 +153,7 @@ function initCanvas() {
       return false;
     }
 
-    function handleDropTerms(e) {
+    /*function handleDropTerms(e) {
       e = e || window.event;
       if (e.preventDefault) {
         e.preventDefault();
@@ -172,7 +176,7 @@ function initCanvas() {
       });
       canvas.add(newImage);
       return false;
-    }
+    }*/
 
     function handleDragEndIcons(e) {
       [].forEach.call(imagesIcons, function(img) {
@@ -180,11 +184,11 @@ function initCanvas() {
       });
     }
 
-    function handleDragEndTerms(e) {
+    /*function handleDragEndTerms(e) {
       [].forEach.call(imagesTerms, function(img) {
         img.classList.remove('img_dragging');
       });
-    }
+    }*/
   
     var imagesIcons = document.querySelectorAll('.icons img');
     [].forEach.call(imagesIcons, function(img) {
@@ -192,17 +196,17 @@ function initCanvas() {
       img.addEventListener('dragend', handleDragEndIcons, false);
     });
     
-    var imagesTerms = document.querySelectorAll('.terms img');
+    /*var imagesTerms = document.querySelectorAll('.terms img');
     [].forEach.call(imagesTerms, function(img) {
       img.addEventListener('dragstart', handleDragStartTerms, false);
       img.addEventListener('dragend', handleDragEndTerms, false);
-    });
+    });*/
 
     canvasContainer.addEventListener('dragenter', handleDragEnter, false);
     canvasContainer.addEventListener('dragover', handleDragOver, false);
     canvasContainer.addEventListener('dragleave', handleDragLeave, false);
     canvasContainer.addEventListener('drop', handleDropIcons, false);
-    canvasContainer.addEventListener('drop', handleDropTerms, false);
+    //canvasContainer.addEventListener('drop', handleDropTerms, false);
   });
 }
 initCanvas();
@@ -212,22 +216,12 @@ var canvas = new fabric.Canvas('canvas1', {
        selection: false
     });
 
-canvas.backgroundColor = 'green';
+$('#bg_color').on('input', function() { 
+          canvas.backgroundColor = $('#bg_color').val();
+          canvas.renderAll();
+        });
 var line, isDown;
 
-
-/*function Addtext() {
-   canvas.add(new fabric.IText('tap and type', {
-      left: 50,
-      top: 100,
-      fontFamily: 'helvetica neue',
-      fill: '#333',
-      stroke: '#F0F0F0',
-      strokeWidth: 1,
-      fontSize: 30,
-      fontWeight: 400
-   }));
-}*/
 
 function Addtext() {
    var fabText = new fabric.IText('', {
@@ -260,7 +254,6 @@ function clearText(e) {
     };
   }
 }
-
 
 
 function enableFreeDrawing(){
